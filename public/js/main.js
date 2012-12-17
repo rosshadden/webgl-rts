@@ -5,14 +5,17 @@ var dimensions = {
 	height: 600
 };
 
-var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera(75, dimensions.width / dimensions.height, 0.1, 1000);
+var scene, camera, renderer;
+var init = (function(){
+	scene = new THREE.Scene();
+	camera = new THREE.PerspectiveCamera(75, dimensions.width / dimensions.height, 0.1, 1000);
 
-var renderer = new THREE.WebGLRenderer();
-renderer.setSize(dimensions.width, dimensions.height);
-document.body.appendChild(renderer.domElement);
+	renderer = new THREE.WebGLRenderer();
+	renderer.setSize(dimensions.width, dimensions.height);
+	document.body.appendChild(renderer.domElement);
 
-camera.position.set(0, 0, 500);
+	camera.position.set(0, 0, 500);
+})();
 
 var map = new THREE.Mesh(
 	new THREE.CubeGeometry(dimensions.width, dimensions.height, 0),
@@ -38,10 +41,8 @@ var update = function(){
 	}
 };
 
-(function render() {
+(function render(){
 	requestAnimationFrame(render);
-
 	update();
-
 	renderer.render(scene, camera);
 })();
