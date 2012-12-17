@@ -1,40 +1,29 @@
-var camera, scene, renderer;
-var geometry, material, mesh;
+var dimensions = {
+	width: 800,
+	height: 600
+};
 
-init();
-animate();
+var scene = new THREE.Scene();
+var camera = new THREE.PerspectiveCamera(75, dimensions.width / dimensions.height, 0.1, 1000);
 
-function init() {
+var renderer = new THREE.WebGLRenderer();
+renderer.setSize(dimensions.width, dimensions.height);
+document.body.appendChild(renderer.domElement);
 
-	camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
-	camera.position.z = 1000;
+var geometry = new THREE.CubeGeometry(1, 1, 1);
+var material = new THREE.MeshBasicMaterial({
+	color: 0x00ff00
+});
+var cube = new THREE.Mesh(geometry, material);
+scene.add(cube);
 
-	scene = new THREE.Scene();
+camera.position.z = 5;
 
-	geometry = new THREE.CubeGeometry(200, 200, 200);
-	material = new THREE.MeshBasicMaterial({
-		color: 0xff0000,
-		wireframe: true
-	});
+(function render(){
+	requestAnimationFrame(render);
 
-	mesh = new THREE.Mesh(geometry, material);
-	scene.add(mesh);
-
-	renderer = new THREE.CanvasRenderer();
-	renderer.setSize(window.innerWidth, window.innerHeight);
-
-	document.body.appendChild(renderer.domElement);
-
-}
-
-function animate() {
-
-	// note: three.js includes requestAnimationFrame shim
-	requestAnimationFrame(animate);
-
-	mesh.rotation.x += 0.01;
-	mesh.rotation.y += 0.02;
+	cube.rotation.x += 0.1;
+	cube.rotation.y += 0.1;
 
 	renderer.render(scene, camera);
-
-}
+})();
