@@ -30,6 +30,16 @@ var init = (function(){
 		})
 	);
 
+	var skyBox = new THREE.Mesh(
+		new THREE.CubeGeometry(10000, 10000, 10000),
+		new THREE.MeshBasicMaterial({
+			color: 0xff0000
+		})
+	);
+	skyBox.flipSided = true;
+	scene.fog = new THREE.FogExp2(0x00ff00, 0.00025);
+
+	scene.add(skyBox);
 	scene.add(light);
 	scene.add(floor);
 })();
@@ -58,7 +68,7 @@ var update = function(){
 	var modifier = 1;
 
 	if(keyboard.isPressed('shift')){
-		modifier = 5;
+		modifier = 10;
 	}
 	if(keyboard.isPressed('a')){
 		camera.position.x -= modifier;
@@ -71,6 +81,12 @@ var update = function(){
 	}
 	if(keyboard.isPressed('s')){
 		camera.position.y -= modifier;
+	}
+	if(keyboard.isPressed('space')){
+		camera.position.z += modifier;
+	}
+	if(keyboard.isPressed('c')){
+		camera.position.z -= modifier;
 	}
 };
 
