@@ -44,6 +44,26 @@ var init = (function(){
 	scene.add(floor);
 })();
 
+//	EVENTS.
+(function(){
+	var $canvas = $('canvas');
+	$canvas
+	.on('mousedown', function(event){
+		var x = event.offsetX,
+			y = event.offsetY;
+
+		$canvas.on('mousemove', function(event){
+			camera.position.x += (x - event.offsetX);
+			camera.position.y -= (y - event.offsetY);
+			x = event.offsetX;
+			y = event.offsetY;
+		});
+	})
+	.on('mouseup', function(){
+		$canvas.unbind('mousemove');
+	});
+})();
+
 var update = function(){
 	var modifier = 1;
 
