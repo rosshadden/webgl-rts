@@ -30,16 +30,6 @@ var init = (function(){
 		})
 	);
 
-	var skyBox = new THREE.Mesh(
-		new THREE.CubeGeometry(10000, 10000, 10000),
-		new THREE.MeshBasicMaterial({
-			color: 0x9999ff
-		})
-	);
-	skyBox.flipSided = true;
-	scene.fog = new THREE.FogExp2(0x9999ff, 0.00025);
-
-	scene.add(skyBox);
 	scene.add(light);
 	scene.add(floor);
 })();
