@@ -39,13 +39,20 @@ var init = (function(){
 	skyBox.flipSided = true;
 	scene.fog = new THREE.FogExp2(0x00ff00, 0.00025);
 
-	var android;
+	var commandCenter = new THREE.Mesh(
+		new THREE.CubeGeometry(50, 50, 25),
+		new THREE.MeshBasicMaterial({
+			color: 0x006600
+		})
+	);
+	commandCenter.position.set(200, 200, 0);
+
 	var jsonLoader = new THREE.JSONLoader();
 	jsonLoader.load('models/android.js', function(geometry) {
 		var material = new THREE.MeshBasicMaterial({
 			color: 0x336699
 		});
-		android = new THREE.Mesh(geometry, material);
+		var android = new THREE.Mesh(geometry, material);
 		android.scale.set(10, 10, 10);
 		android.rotation.set(Math.PI / 2, 0, 0);
 
@@ -55,6 +62,7 @@ var init = (function(){
 	scene.add(skyBox);
 	scene.add(light);
 	scene.add(floor);
+	scene.add(commandCenter);
 })();
 
 //	EVENTS.
