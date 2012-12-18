@@ -39,14 +39,18 @@ var init = (function(){
 	skyBox.flipSided = true;
 	scene.fog = new THREE.FogExp2(0x00ff00, 0.00025);
 
-	// var android;
-	// var jsonLoader = new THREE.JSONLoader();
-	// jsonLoader.load('models/android.js', function(geometry) {
-	// 	var material = new THREE.MeshFaceMaterial();
-	// 	android = new THREE.Mesh(geometry, material);
-	// 	android.scale.set(10, 10, 10);
-	// 	scene.add(android);
-	// });
+	var android;
+	var jsonLoader = new THREE.JSONLoader();
+	jsonLoader.load('models/android.js', function(geometry) {
+		var material = new THREE.MeshBasicMaterial({
+			color: 0x336699
+		});
+		android = new THREE.Mesh(geometry, material);
+		android.scale.set(10, 10, 10);
+		android.rotation.set(Math.PI / 2, 0, 0);
+
+		scene.add(android);
+	});
 
 	scene.add(skyBox);
 	scene.add(light);
@@ -62,8 +66,8 @@ var init = (function(){
 			y = event.offsetY;
 
 		$canvas.on('mousemove', function(event){
-			camera.position.x += (x - event.offsetX);
-			camera.position.y -= (y - event.offsetY);
+			camera.position.x += (x - event.offsetX) / 2;
+			camera.position.y -= (y - event.offsetY) / 2;
 			x = event.offsetX;
 			y = event.offsetY;
 		});
@@ -74,10 +78,10 @@ var init = (function(){
 	.on('mousewheel', function(event){
 		var Δ = event.originalEvent.wheelDeltaY;
 
-		if(camera.position.z - Δ / 2 > 10){
+		if(camera.position.z - Δ / 2 > 100){
 			camera.position.z -= Δ / 2;
 		}else{
-			camera.position.z = 10;
+			camera.position.z = 100;
 		}
 	});
 })();
@@ -99,6 +103,12 @@ var update = function(){
 	}
 	if(keyboard.isPressed('s')){
 		camera.position.y -= modifier;
+	}
+	if(keyboard.isPressed('q')){
+		camera.lookAt(0, 0, 0);
+	}
+	if(keyboard.isPressed('e')){
+		camera.lookAt(scene.position);
 	}
 };
 
