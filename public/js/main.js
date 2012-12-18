@@ -43,7 +43,7 @@ var init = (function(){
 	scene.fog = new THREE.FogExp2(0x00ff00, 0.00025);
 
 	var commandCenter = new THREE.Mesh(
-		new THREE.CubeGeometry(50, 50, 25),
+		new THREE.CubeGeometry(100, 100, 50),
 		new THREE.MeshBasicMaterial({
 			color: 0x663333
 		})
@@ -54,14 +54,43 @@ var init = (function(){
 		cache: {}
 	};
 
+	var barracks = new THREE.Mesh(
+		new THREE.CubeGeometry(50, 100, 25),
+		new THREE.MeshBasicMaterial({
+			color: 0x663399
+		})
+	);
+	barracks.position.set(100, 100, 0);
+	barracks.data = {
+		name: 'Barracks',
+		cache: {}
+	};
+
 	scene.add(skyBox);
 	scene.add(light);
 	scene.add(floor);
 	scene.add(commandCenter);
+	scene.add(barracks);
 
 	buildings.push(commandCenter);
+	buildings.push(barracks);
 })();
 
+var clearSelection = function(building){
+	var clear = function(object){
+		if(object.data.cache.materialColor){
+			object.material.color.setHex(object.data.cache.materialColor);
+		}
+	};
+
+	if(building){
+		clear(building);
+	}else{
+		buildings.forEach(clear);
+	}
+};
+
+var selected = null;
 //	EVENTS.
 (function(){
 	var $canvas = $('canvas');
@@ -77,15 +106,17 @@ var init = (function(){
 		var intersects = ray.intersectObjects(buildings);
 
 		if(intersects.length > 0){
+			if(intersects[0] !== selected){
+				clearSelection(selected);
+			}
+
 			if(intersects[0].object.material.color.getHex() !== 0x3366ff){
 				intersects[0].object.data.cache.materialColor = intersects[0].object.material.color.getHex();
 			}
 			intersects[0].object.material.color.setHex(0x3366ff);
 			$('#main').text(intersects[0].object.data.name);
 		}else{
-			buildings.forEach(function(building, b){
-				building.material.color.setHex(building.data.cache.materialColor);
-			});
+			clearSelection();
 			$('#main').text('');
 		}
 	})
