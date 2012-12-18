@@ -39,6 +39,15 @@ var init = (function(){
 	skyBox.flipSided = true;
 	scene.fog = new THREE.FogExp2(0x00ff00, 0.00025);
 
+	var android;
+	var jsonLoader = new THREE.JSONLoader();
+	jsonLoader.load('models/android.js', function(geometry) {
+		var material = new THREE.MeshFaceMaterial();
+		android = new THREE.Mesh(geometry, material);
+		android.scale.set(10, 10, 10);
+		scene.add(android);
+	});
+
 	scene.add(skyBox);
 	scene.add(light);
 	scene.add(floor);
