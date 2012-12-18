@@ -76,21 +76,36 @@ var init = (function(){
 	buildings.push(barracks);
 })();
 
-var clearSelection = function(building){
+var selection = (function(){
+	var current = [];
+
 	var clear = function(object){
-		if(object.data.cache.materialColor){
-			object.material.color.setHex(object.data.cache.materialColor);
+		var clear = function(object){
+			if(object.data.cache.materialColor){
+				object.material.color.setHex(object.data.cache.materialColor);
+			}
+		};
+
+		if(object){
+			// clear(object);
+		}else{
+			buildings.forEach(clear);
 		}
 	};
 
-	if(building){
-		clear(building);
-	}else{
-		buildings.forEach(clear);
-	}
-};
+	var select = function(object){
+		selected = object;
+	};
+
+	return {
+		current: current,
+		select: select,
+		clear: clear
+	};
+})();
 
 var selected = null;
+
 //	EVENTS.
 (function(){
 	var $canvas = $('canvas');
@@ -107,16 +122,17 @@ var selected = null;
 
 		if(intersects.length > 0){
 			if(intersects[0] !== selected){
-				clearSelection(selected);
+				selection.clear(selected);
 			}
 
 			if(intersects[0].object.material.color.getHex() !== 0x3366ff){
 				intersects[0].object.data.cache.materialColor = intersects[0].object.material.color.getHex();
+				selection.select(intersects[0]);
 			}
 			intersects[0].object.material.color.setHex(0x3366ff);
 			$('#main').text(intersects[0].object.data.name);
 		}else{
-			clearSelection();
+			selection.clear();
 			$('#main').text('');
 		}
 	})
