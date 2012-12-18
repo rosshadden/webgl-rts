@@ -39,14 +39,14 @@ var init = (function(){
 	skyBox.flipSided = true;
 	scene.fog = new THREE.FogExp2(0x00ff00, 0.00025);
 
-	var android;
-	var jsonLoader = new THREE.JSONLoader();
-	jsonLoader.load('models/android.js', function(geometry) {
-		var material = new THREE.MeshFaceMaterial();
-		android = new THREE.Mesh(geometry, material);
-		android.scale.set(10, 10, 10);
-		scene.add(android);
-	});
+	// var android;
+	// var jsonLoader = new THREE.JSONLoader();
+	// jsonLoader.load('models/android.js', function(geometry) {
+	// 	var material = new THREE.MeshFaceMaterial();
+	// 	android = new THREE.Mesh(geometry, material);
+	// 	android.scale.set(10, 10, 10);
+	// 	scene.add(android);
+	// });
 
 	scene.add(skyBox);
 	scene.add(light);
@@ -70,6 +70,15 @@ var init = (function(){
 	})
 	.on('mouseup', function(){
 		$canvas.unbind('mousemove');
+	})
+	.on('mousewheel', function(event){
+		var Δ = event.originalEvent.wheelDeltaY;
+
+		if(camera.position.z - Δ / 2 > 10){
+			camera.position.z -= Δ / 2;
+		}else{
+			camera.position.z = 10;
+		}
 	});
 })();
 
@@ -90,12 +99,6 @@ var update = function(){
 	}
 	if(keyboard.isPressed('s')){
 		camera.position.y -= modifier;
-	}
-	if(keyboard.isPressed('space')){
-		camera.position.z += modifier;
-	}
-	if(keyboard.isPressed('c')){
-		camera.position.z -= modifier;
 	}
 };
 
