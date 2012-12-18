@@ -1,11 +1,12 @@
 var keyboard = KeyboardJS;
 
 var dimensions = {
-	width: 800,
-	height: 600
+	width: window.innerWidth,
+	height: window.innerHeight
 };
 
-var scene, camera, renderer;
+var scene, camera, projector, renderer;
+var buildings = [];
 var init = (function(){
 	scene = new THREE.Scene();
 
@@ -16,6 +17,8 @@ var init = (function(){
 	//	CAMERA.
 	camera = new THREE.PerspectiveCamera(75, dimensions.width / dimensions.height, 0.1, 20000);
 	camera.position.set(0, 0, 400);
+
+	projector = new THREE.Projector();
 
 	//	ACTION.
 	renderer = new THREE.WebGLRenderer();
@@ -47,28 +50,34 @@ var init = (function(){
 	);
 	commandCenter.position.set(200, 200, 0);
 
-	var jsonLoader = new THREE.JSONLoader();
-	jsonLoader.load('models/android.js', function(geometry) {
-		var material = new THREE.MeshBasicMaterial({
-			color: 0x336699
-		});
-		var android = new THREE.Mesh(geometry, material);
-		android.scale.set(10, 10, 10);
-		android.rotation.set(Math.PI / 2, 0, 0);
-
-		scene.add(android);
-	});
-
 	scene.add(skyBox);
 	scene.add(light);
 	scene.add(floor);
 	scene.add(commandCenter);
+
+	buildings.push(commandCenter);
 })();
 
 //	EVENTS.
 (function(){
 	var $canvas = $('canvas');
 	$canvas
+	.on('click', function(event){
+		event.preventDefault();
+
+		var vector = new THREE.Vector3((event.clientX / dimensions.width) * 2 - 1, -(event.clientY / dimensions.height) * 2 + 1, 0.5);
+		projector.unprojectVector(vector, camera);
+
+		var ray = new THREE.Ray(camera.position, vector.subSelf(camera.position).normalize());
+
+		var intersects = ray.intersectObjects(buildings);
+
+		if(intersects.length > 0){
+			intersects[0].object.material.color.setHex(Math.random() * 0xffffff);
+
+			console.log(intersects);
+		}
+	})
 	.on('mousedown', function(event){
 		var x = event.offsetX,
 			y = event.offsetY;

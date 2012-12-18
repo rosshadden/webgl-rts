@@ -1,2 +1,2 @@
-canvas{position:absolute;top:0;left:50%;width:800px;height:600px;display:block;margin:0 0 0 -400px;border:1px solid #000;z-index:-1}
-#main{position:absolute;top:600px;left:50%;width:800px;height:100px;margin:0 0 0 -400px;border:1px solid #000;border-top:0;-webkit-border-radius:0 0 8px 8px;border-radius:0 0 8px 8px;background:rgba(100,100,200,0.5)}
+canvas{position:absolute;top:0;left:0;width:100%;height:100%;display:block;z-index:-1}
+#main{position:absolute;bottom:0;left:50%;width:800px;height:100px;margin:0 0 0 -400px;border:1px solid #000;border-bottom:0;-webkit-border-radius:8px 8px 0 0;border-radius:8px 8px 0 0;background:rgba(100,100,200,0.5)}
