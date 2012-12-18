@@ -45,7 +45,7 @@ var init = (function(){
 	var commandCenter = new THREE.Mesh(
 		new THREE.CubeGeometry(50, 50, 25),
 		new THREE.MeshBasicMaterial({
-			color: 0x006600
+			color: 0x663333
 		})
 	);
 	commandCenter.position.set(200, 200, 0);
@@ -81,10 +81,12 @@ var init = (function(){
 				intersects[0].object.data.cache.materialColor = intersects[0].object.material.color.getHex();
 			}
 			intersects[0].object.material.color.setHex(0x3366ff);
+			$('#main').text(intersects[0].object.data.name);
 		}else{
 			buildings.forEach(function(building, b){
 				building.material.color.setHex(building.data.cache.materialColor);
 			});
+			$('#main').text('');
 		}
 	})
 	.on('mousedown', function(event){
