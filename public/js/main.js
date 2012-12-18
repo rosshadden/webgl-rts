@@ -29,7 +29,7 @@ var init = (function(){
 	var floor = new THREE.Mesh(
 		new THREE.PlaneGeometry(dimensions.width, dimensions.height, 1, 1),
 		new THREE.MeshBasicMaterial({
-			color: 0x663333
+			color: 0x336633
 		})
 	);
 
@@ -49,6 +49,10 @@ var init = (function(){
 		})
 	);
 	commandCenter.position.set(200, 200, 0);
+	commandCenter.data = {
+		name: 'Command Center',
+		cache: {}
+	};
 
 	scene.add(skyBox);
 	scene.add(light);
@@ -73,9 +77,14 @@ var init = (function(){
 		var intersects = ray.intersectObjects(buildings);
 
 		if(intersects.length > 0){
-			intersects[0].object.material.color.setHex(Math.random() * 0xffffff);
-
-			console.log(intersects);
+			if(intersects[0].object.material.color.getHex() !== 0x3366ff){
+				intersects[0].object.data.cache.materialColor = intersects[0].object.material.color.getHex();
+			}
+			intersects[0].object.material.color.setHex(0x3366ff);
+		}else{
+			buildings.forEach(function(building, b){
+				building.material.color.setHex(building.data.cache.materialColor);
+			});
 		}
 	})
 	.on('mousedown', function(event){
