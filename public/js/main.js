@@ -48,7 +48,7 @@ var init = (function(){
 		})
 	);
 	skyBox.flipSided = true;
-	scene.fog = new THREE.FogExp2(0x00ff00, 0.00025);
+	scene.fog = new THREE.FogExp2(0x000000, 1e-4);
 
 	var commandCenter = new THREE.Mesh(
 		new THREE.CubeGeometry(100, 100, 50),
@@ -193,10 +193,9 @@ var selection = (function(){
 	.on('mousewheel', function(event){
 		var Δ = event.originalEvent.wheelDeltaY;
 
-		if(camera.position.z - Δ / 2 > 100){
-			camera.position.z -= Δ / 2;
-		}else{
-			camera.position.z = 100;
+		var position = camera.position.z - Δ / 2;
+		if(1e2 < position && position < 1e3){
+			camera.position.z = position;
 		}
 	})
 	.on('contextmenu', function(event){
