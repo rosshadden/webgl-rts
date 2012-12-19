@@ -138,6 +138,8 @@ var selection = (function(){
 
 		if(event.which === 1){
 			$canvas.css('cursor', 'crosshair');
+		}else if(event.which === 2){
+			$canvas.css('cursor', 'all-scroll');
 		}else if(event.which === 3){
 			$canvas
 			.css('cursor', 'move')
@@ -150,13 +152,9 @@ var selection = (function(){
 		}
 	})
 	.on('mouseup', function(event){
-		if(event.which === 1){
-			$canvas.css('cursor', 'auto');
-		}else if(event.which === 3){
-			$canvas
-			.css('cursor', 'auto')
-			.unbind('mousemove');
-		}
+		$canvas
+		.css('cursor', 'auto')
+		.unbind('mousemove');
 	})
 	.on('mousewheel', function(event){
 		var Δ = event.originalEvent.wheelDeltaY;
