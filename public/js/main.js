@@ -29,7 +29,7 @@ var init = (function(){
 	var floor = new THREE.Mesh(
 		new THREE.PlaneGeometry(dimensions.width, dimensions.height, 1, 1),
 		new THREE.MeshBasicMaterial({
-			color: 0x336633
+			color: 0x003300
 		})
 	);
 
@@ -51,6 +51,7 @@ var init = (function(){
 	commandCenter.position.set(200, 200, 0);
 	commandCenter.data = {
 		name: 'Command Center',
+		type: 'building',
 		cache: {}
 	};
 
@@ -63,6 +64,7 @@ var init = (function(){
 	barracks.position.set(100, 100, 0);
 	barracks.data = {
 		name: 'Barracks',
+		type: 'building',
 		cache: {}
 	};
 
@@ -81,19 +83,19 @@ var selection = (function(){
 	var cache = {};
 
 	var select = function(entity){
-		console.log('selecting');
+		var index = buildings.indexOf(entity.object);
+
+		if(!~current.indexOf(index)){
+			clear();
+		}
+
 		entity.object.material.color.setHex(0x3366ff);
-		current.push(entity);
+		current.push(index);
 	};
 
 	var clear = function(){
-		var args = Array.prototype.slice.call(arguments);
-
-		current = current.filter(function(entity, e){
-			entity.object.material.color.setHex(0x123456);
-			if(args[0]){
-				return entity !== args[0];
-			}
+		current = current.filter(function(index, i){
+			buildings[index].material.color.setHex(0x123456);
 			return false;
 		});
 	};
