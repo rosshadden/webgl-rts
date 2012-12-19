@@ -82,30 +82,44 @@ var selection = (function(){
 	var current = [];
 	var cache = {};
 
-	var select = function(entity){
+	var selection = {};
+	selection.select = function(entity){
 		var index = buildings.indexOf(entity.object);
 
 		if(!~current.indexOf(index)){
-			clear();
+			selection.clear();
 		}
 
-		cache[index] = entity.object.material.color.getHex();
-		entity.object.material.color.setHex(0x3366ff);
-		current.push(index);
+		selection.add(entity);
+
+		return selection;
 	};
 
-	var clear = function(){
+	selection.add = function(entity){
+		var index = buildings.indexOf(entity.object);
+
+		if(!(index in cache)){
+			cache[index] = entity.object.material.color.getHex();
+			entity.object.material.color.setHex(0x3366ff);
+			current.push(index);
+		}else{
+			selection.clear(entity);
+		}
+
+		return selection;
+	};
+
+	selection.clear = function(){
 		current = current.filter(function(index, i){
 			buildings[index].material.color.setHex(cache[index]);
 			delete cache[index];
 			return false;
 		});
+
+		return selection;
 	};
 
-	return {
-		select: select,
-		clear: clear
-	};
+	return selection;
 })();
 
 //	EVENTS.
@@ -122,8 +136,9 @@ var selection = (function(){
 
 		var intersects = ray.intersectObjects(buildings);
 
+		var action = (keyboard.isPressed('ctrl')) ? 'add' : 'select';
 		if(intersects.length > 0){
-			selection.select(intersects[0]);
+			selection[action](intersects[0]);
 			$('#main').text(intersects[0].object.data.name);
 		}else{
 			selection.clear();
