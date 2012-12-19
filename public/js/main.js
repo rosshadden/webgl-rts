@@ -78,33 +78,31 @@ var init = (function(){
 
 var selection = (function(){
 	var current = [];
+	var cache = {};
 
-	var clear = function(object){
-		var clear = function(object){
-			if(object.data.cache.materialColor){
-				object.material.color.setHex(object.data.cache.materialColor);
-			}
-		};
-
-		if(object){
-			// clear(object);
-		}else{
-			buildings.forEach(clear);
-		}
+	var select = function(entity){
+		console.log('selecting');
+		entity.object.material.color.setHex(0x3366ff);
+		current.push(entity);
 	};
 
-	var select = function(object){
-		selected = object;
+	var clear = function(){
+		var args = Array.prototype.slice.call(arguments);
+
+		current = current.filter(function(entity, e){
+			entity.object.material.color.setHex(0x123456);
+			if(args[0]){
+				return entity !== args[0];
+			}
+			return false;
+		});
 	};
 
 	return {
-		current: current,
 		select: select,
 		clear: clear
 	};
 })();
-
-var selected = null;
 
 //	EVENTS.
 (function(){
@@ -121,15 +119,7 @@ var selected = null;
 		var intersects = ray.intersectObjects(buildings);
 
 		if(intersects.length > 0){
-			if(intersects[0] !== selected){
-				selection.clear(selected);
-			}
-
-			if(intersects[0].object.material.color.getHex() !== 0x3366ff){
-				intersects[0].object.data.cache.materialColor = intersects[0].object.material.color.getHex();
-				selection.select(intersects[0]);
-			}
-			intersects[0].object.material.color.setHex(0x3366ff);
+			selection.select(intersects[0]);
 			$('#main').text(intersects[0].object.data.name);
 		}else{
 			selection.clear();
