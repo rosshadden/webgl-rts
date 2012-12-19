@@ -223,7 +223,7 @@ var update = function(){
 		camera.position.y -= modifier;
 	}
 	if(keyboard.isPressed('q')){
-		camera.lookAt(0, 0, 0);
+		camera.lookAt({});
 	}
 	if(keyboard.isPressed('e')){
 		camera.lookAt(scene.position);
