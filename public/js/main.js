@@ -5,6 +5,14 @@ var dimensions = {
 	height: window.innerHeight
 };
 
+var mouse = {
+	position: {
+		x: 0,
+		y: 0,
+		z: 0
+	}
+};
+
 var scene, camera, projector, renderer;
 var buildings = [];
 var init = (function(){
@@ -169,7 +177,7 @@ var selection = (function(){
 		}else if(event.which === 3){
 			$canvas
 			.css('cursor', 'move')
-			.on('mousemove', function(event){
+			.on('mousemove.drag', function(event){
 				camera.position.x += (x - event.offsetX) / 2;
 				camera.position.y -= (y - event.offsetY) / 2;
 				x = event.offsetX;
@@ -180,7 +188,7 @@ var selection = (function(){
 	.on('mouseup', function(event){
 		$canvas
 		.css('cursor', 'auto')
-		.unbind('mousemove');
+		.unbind('mousemove.drag');
 	})
 	.on('mousewheel', function(event){
 		var Δ = event.originalEvent.wheelDeltaY;
