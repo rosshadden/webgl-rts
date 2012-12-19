@@ -89,13 +89,15 @@ var selection = (function(){
 			clear();
 		}
 
+		cache[index] = entity.object.material.color.getHex();
 		entity.object.material.color.setHex(0x3366ff);
 		current.push(index);
 	};
 
 	var clear = function(){
 		current = current.filter(function(index, i){
-			buildings[index].material.color.setHex(0x123456);
+			buildings[index].material.color.setHex(cache[index]);
+			delete cache[index];
 			return false;
 		});
 	};
@@ -129,18 +131,32 @@ var selection = (function(){
 		}
 	})
 	.on('mousedown', function(event){
+		event.preventDefault();
+
 		var x = event.offsetX,
 			y = event.offsetY;
 
-		$canvas.on('mousemove', function(event){
-			camera.position.x += (x - event.offsetX) / 2;
-			camera.position.y -= (y - event.offsetY) / 2;
-			x = event.offsetX;
-			y = event.offsetY;
-		});
+		if(event.which === 1){
+			$canvas.css('cursor', 'crosshair');
+		}else if(event.which === 3){
+			$canvas
+			.css('cursor', 'move')
+			.on('mousemove', function(event){
+				camera.position.x += (x - event.offsetX) / 2;
+				camera.position.y -= (y - event.offsetY) / 2;
+				x = event.offsetX;
+				y = event.offsetY;
+			});
+		}
 	})
-	.on('mouseup', function(){
-		$canvas.unbind('mousemove');
+	.on('mouseup', function(event){
+		if(event.which === 1){
+			$canvas.css('cursor', 'auto');
+		}else if(event.which === 3){
+			$canvas
+			.css('cursor', 'auto')
+			.unbind('mousemove');
+		}
 	})
 	.on('mousewheel', function(event){
 		var Δ = event.originalEvent.wheelDeltaY;
@@ -150,6 +166,9 @@ var selection = (function(){
 		}else{
 			camera.position.z = 100;
 		}
+	})
+	.on('contextmenu', function(event){
+		event.preventDefault();
 	});
 })();
 
