@@ -90,7 +90,9 @@ var selection = (function(){
 			selection.clear();
 		}
 
-		selection.add(entity);
+		cache[index] = entity.object.material.color.getHex();
+		entity.object.material.color.setHex(0x3366ff);
+		current.push(index);
 
 		return selection;
 	};
@@ -109,11 +111,20 @@ var selection = (function(){
 		return selection;
 	};
 
-	selection.clear = function(){
+	selection.clear = function(entity){
+		var bIndex = buildings.indexOf(entity && entity.object);
+
 		current = current.filter(function(index, i){
-			buildings[index].material.color.setHex(cache[index]);
-			delete cache[index];
-			return false;
+			if(bIndex === -1){
+				buildings[index].material.color.setHex(cache[index]);
+				delete cache[index];
+				return false;
+			}else if(index === bIndex){
+				buildings[index].material.color.setHex(cache[index]);
+				delete cache[index];
+				return false;
+			}
+			return true;
 		});
 
 		return selection;
