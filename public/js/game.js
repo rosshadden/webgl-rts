@@ -53,16 +53,20 @@ define([
 		skyBox.flipSided = true;
 		scene.fog = new THREE.FogExp2(0x000000, 1e-4);
 
-		var commandCenter = entities.buildings.create([100, 100, 50], 0x663333);
-		commandCenter.object.position.set(200, 200, 0);
+		var commandCenter = entities.buildings.create('cc', {
+			x: 200,
+			y: 200
+		});
 		commandCenter.object.data = {
 			name: 'Command Center',
 			type: 'building',
 			cache: {}
 		};
 
-		var barracks = entities.buildings.create([50, 100, 25], 0x663399);
-		barracks.object.position.set(100, 100, 0);
+		var barracks = entities.buildings.create('barracks', {
+			x: 100,
+			y: 100
+		});
 		barracks.object.data = {
 			name: 'Barracks',
 			type: 'building',

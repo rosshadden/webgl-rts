@@ -1,13 +1,26 @@
-define(['./Building'], function(Building){
+define(['./Building', './CommandCenter', './Barracks'], function(Building, CommandCenter, Barracks){
 	var buildings = (function(){
 		var list = [];
 		var set = [];
 
 		var buildings = {
-			Building: Building,
+			types: {
+				building: Building,
+				cc: CommandCenter,
+				barracks: Barracks
+			},
 
 			create: function(){
-				var building = Building.create.apply(Building, arguments);
+				var args = Array.prototype.slice.call(arguments);
+
+				var type = 'building';
+				if(typeof args[0] === 'string' && args[0] in buildings.types){
+					type = args.splice(0, 1)[0];
+				}
+
+				var constructor = buildings.types[type];
+
+				var building = constructor.create.apply(constructor, args);
 
 				building.id = building.object.id;
 				list.push(building);
