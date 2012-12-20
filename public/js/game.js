@@ -148,10 +148,12 @@ define([
 			var action = (keyboard.isPressed('ctrl')) ? 'add' : 'select';
 			if(intersects.length > 0){
 				selection[action](intersects[0]);
-				$('#main').text(intersects[0].object.data.name);
+				$('#main').html(
+					entities.buildings.get(intersects[0].object.id).paint()
+				);
 			}else{
 				selection.clear();
-				$('#main').text('');
+				$('#main').html('');
 			}
 		})
 		.on('mousedown', function(event){

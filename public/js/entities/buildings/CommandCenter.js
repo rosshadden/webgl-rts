@@ -10,7 +10,7 @@ define(['./Building'], function(Building){
 
 		name: 'command center',
 
-		gui: 'cc'
+		gui: '<h1>Command Center</h1><p>Without this... wtf are you doing here?</p>'
 	});
 
 	return CommandCenter;

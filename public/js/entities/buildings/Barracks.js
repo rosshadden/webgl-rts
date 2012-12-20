@@ -8,7 +8,9 @@ define(['./Building'], function(Building){
 			Barracks.super.constructor.call(this, [50, 100, 25], position, 0x663399);
 		},
 
-		name: 'barracks'
+		name: 'barracks',
+
+		gui: '<h1>Barracks</h1><p>These things are the shit.</p>'
 	});
 
 	return Barracks;

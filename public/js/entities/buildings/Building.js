@@ -1,8 +1,7 @@
 define(['entities/Entity'], function(Entity){
 	var Building = Entity.extend({
 		init: function(){
-			// this.gui = Handlebars.compile(this.gui);
-			log('gui', this.gui);
+			this.gui = Handlebars.compile(this.gui);
 		},
 
 		constructor: function(dim, position, color){
