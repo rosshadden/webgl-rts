@@ -4,7 +4,6 @@ define(['base', './buildings/main'], function(Base, Building){
 		});
 
 		Entity.Building = Building(Entity);
-		Entity.test = 4;
 
 		return Entity;
 	};

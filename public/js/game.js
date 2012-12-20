@@ -2,7 +2,7 @@ define([
 	'lib/keyboard',
 	'entities'
 ], function(keyboard, Entity){
-	window.Entity = Entity();
+	Entity = Entity();
 
 	var dimensions = {
 		width: window.innerWidth,
@@ -54,27 +54,17 @@ define([
 		skyBox.flipSided = true;
 		scene.fog = new THREE.FogExp2(0x000000, 1e-4);
 
-		var commandCenter = new THREE.Mesh(
-			new THREE.CubeGeometry(100, 100, 50),
-			new THREE.MeshBasicMaterial({
-				color: 0x663333
-			})
-		);
-		commandCenter.position.set(200, 200, 0);
-		commandCenter.data = {
+		var commandCenter = Entity.Building.new([100, 100, 50], 0x663333);
+		commandCenter.object.position.set(200, 200, 0);
+		commandCenter.object.data = {
 			name: 'Command Center',
 			type: 'building',
 			cache: {}
 		};
 
-		var barracks = new THREE.Mesh(
-			new THREE.CubeGeometry(50, 100, 25),
-			new THREE.MeshBasicMaterial({
-				color: 0x663399
-			})
-		);
-		barracks.position.set(100, 100, 0);
-		barracks.data = {
+		var barracks = Entity.Building.new([50, 100, 25], 0x663399);
+		barracks.object.position.set(100, 100, 0);
+		barracks.object.data = {
 			name: 'Barracks',
 			type: 'building',
 			cache: {}
@@ -83,11 +73,11 @@ define([
 		scene.add(skyBox);
 		scene.add(light);
 		scene.add(floor);
-		scene.add(commandCenter);
-		scene.add(barracks);
+		scene.add(commandCenter.object);
+		scene.add(barracks.object);
 
-		buildings.push(commandCenter);
-		buildings.push(barracks);
+		buildings.push(commandCenter.object);
+		buildings.push(barracks.object);
 	})();
 
 	var selection = (function(){
