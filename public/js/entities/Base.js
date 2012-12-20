@@ -39,9 +39,9 @@ define(function(){
             var subProto = Object.create(this, Object.getOwnPropertyDescriptors(subProps || {}));
             subProto.super = this; // for super-calls
 
-            // if(subProps.hasOwnProperty('init')){
-            //     subProps.init();
-            // }
+            if(subProps.hasOwnProperty('init')){
+                subProps.init.apply(subProto);
+            }
             return subProto;
         }
     };

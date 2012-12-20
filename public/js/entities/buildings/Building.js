@@ -1,5 +1,10 @@
 define(['entities/Entity'], function(Entity){
 	var Building = Entity.extend({
+		init: function(){
+			// this.gui = Handlebars.compile(this.gui);
+			log('gui', this.gui);
+		},
+
 		constructor: function(dim, position, color){
 			this.object = new THREE.Mesh(
 				new THREE.CubeGeometry(dim[0], dim[1], dim[2]),
@@ -9,13 +14,11 @@ define(['entities/Entity'], function(Entity){
 			);
 
 			this.object.position.set(position.x || 0, position.y || 0, position.z || 0);
-
-			this.gui = Handlebars.compile(this.gui);
 		},
 
 		name: 'building',
 		type: 'building',
-		gui: '',
+		gui: 'building',
 
 		paint: function(){
 			return this.gui();
