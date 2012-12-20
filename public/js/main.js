@@ -1,10 +1,9 @@
 require.config({
-	packages: ['entities'],
-	paths: {
-		Base: 'utilities/Base'
-	},
+	packages: ['entities', 'utilities'],
 	deps: ['lib/three', 'lib/jquery'],
 	callback: function(){
-		require(['game']);
+		require(['game'], function(game){
+			game();
+		});
 	}
 });

@@ -215,9 +215,9 @@ define([
 		}
 	};
 
-	(function render(){
+	return function render(){
 		requestAnimationFrame(render);
 		update();
 		renderer.render(scene, camera);
-	})();
+	};
 });
