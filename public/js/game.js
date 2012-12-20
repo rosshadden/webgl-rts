@@ -1,8 +1,8 @@
 define([
 	'lib/keyboard',
 	'entities'
-], function(keyboard, Entity){
-	Entity = Entity();
+], function(keyboard, entities){
+	window.entities = entities;
 
 	var dimensions = {
 		width: window.innerWidth,
@@ -54,7 +54,7 @@ define([
 		skyBox.flipSided = true;
 		scene.fog = new THREE.FogExp2(0x000000, 1e-4);
 
-		var commandCenter = Entity.Building.new([100, 100, 50], 0x663333);
+		var commandCenter = entities.buildings.create([100, 100, 50], 0x663333);
 		commandCenter.object.position.set(200, 200, 0);
 		commandCenter.object.data = {
 			name: 'Command Center',
@@ -62,7 +62,7 @@ define([
 			cache: {}
 		};
 
-		var barracks = Entity.Building.new([50, 100, 25], 0x663399);
+		var barracks = entities.buildings.create([50, 100, 25], 0x663399);
 		barracks.object.position.set(100, 100, 0);
 		barracks.object.data = {
 			name: 'Barracks',

@@ -1,7 +1,7 @@
 require.config({
 	packages: ['entities'],
 	paths: {
-		base: 'utilities/base'
+		Base: 'utilities/Base'
 	},
 	deps: ['lib/three', 'lib/jquery'],
 	callback: function(){

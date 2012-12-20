@@ -1,24 +1,26 @@
-define(function(){
-	return function(Entity){
-		var ID = -1;
+define(['./Building'], function(Building){
+	var buildings = (function(){
+		var id = -1;
+		var list = [];
+		var collision = [];
 
-		var Building = Entity.extend({
-			set: [],
+		var buildings = {
+			Building: Building,
 
-			constructor: function(dim, color){
-				this.id = ++ID;
+			create: function(){
+				var building = Building.create.apply(Building, arguments);
 
-				this.object = new THREE.Mesh(
-					new THREE.CubeGeometry(dim[0], dim[1], dim[2]),
-					new THREE.MeshBasicMaterial({
-						color: color
-					})
-				);
+				building.id = ++id;
+				building.object.id = building.id;
+				list.push(building);
+				collision.push(building.object);
 
-				this.object.id = this.id;
+				return building;
 			}
-		});
+		};
 
-		return Building;
-	};
+		return buildings;
+	})();
+
+	return buildings;
 });

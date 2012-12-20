@@ -22,7 +22,7 @@ define(function(){
          * Class method: create a new instance and let instance method constructor() initialize it.
          * "this" is the prototype of the new instance.
          */
-        new: function () {
+        create: function () {
             var instance = Object.create(this);
             if (instance.constructor) {
                 instance.constructor.apply(instance, arguments);

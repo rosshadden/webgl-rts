@@ -1,10 +1,7 @@
-define(['base', './buildings/main'], function(Base, Building){
-	return function(){
-		var Entity = Base.extend({
-		});
+define(['./Entity', './buildings/main'], function(Entity, buildings){
+	var entities = {};
+	entities.Entity = Entity;
+	entities.buildings = buildings;
 
-		Entity.Building = Building(Entity);
-
-		return Entity;
-	};
+	return entities;
 });
