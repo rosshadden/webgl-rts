@@ -1,7 +1,7 @@
 define(['./Building', './CommandCenter', './Barracks'], function(Building, CommandCenter, Barracks){
 	var buildings = (function(){
 		var list = [];
-		var set = [];
+		var set = {};
 
 		var buildings = {
 			types: {
@@ -30,6 +30,9 @@ define(['./Building', './CommandCenter', './Barracks'], function(Building, Comma
 			},
 
 			get: function(id){
+				if(typeof id === 'undefined'){
+					return set;
+				}
 				return id in set && set[id];
 			},
 

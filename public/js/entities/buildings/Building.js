@@ -7,11 +7,19 @@ define(['entities/Entity'], function(Entity){
 					color: color
 				})
 			);
+
 			this.object.position.set(position.x || 0, position.y || 0, position.z || 0);
+
+			this.gui = Handlebars.compile(this.gui);
 		},
 
 		name: 'building',
-		type: 'building'
+		type: 'building',
+		gui: '',
+
+		paint: function(){
+			return this.gui();
+		}
 	});
 
 	return Building;
