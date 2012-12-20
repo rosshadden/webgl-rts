@@ -18,7 +18,6 @@ define([
 	};
 
 	var scene, camera, projector, renderer;
-	var buildings = [];
 	var init = (function(){
 		scene = new THREE.Scene();
 
@@ -75,9 +74,6 @@ define([
 		scene.add(floor);
 		scene.add(commandCenter.object);
 		scene.add(barracks.object);
-
-		buildings.push(commandCenter.object);
-		buildings.push(barracks.object);
 	})();
 
 	var selection = (function(){
@@ -86,26 +82,26 @@ define([
 
 		var selection = {};
 		selection.select = function(entity){
-			var index = buildings.indexOf(entity.object);
+			var id = entity.object.id;
 
-			if(!~current.indexOf(index)){
+			if(!~current.indexOf(id)){
 				selection.clear();
 			}
 
-			cache[index] = entity.object.material.color.getHex();
+			cache[id] = entity.object.material.color.getHex();
 			entity.object.material.color.setHex(0x3366ff);
-			current.push(index);
+			current.push(id);
 
 			return selection;
 		};
 
 		selection.add = function(entity){
-			var index = buildings.indexOf(entity.object);
+			var id = entity.object.id;
 
-			if(!(index in cache)){
-				cache[index] = entity.object.material.color.getHex();
+			if(!(id in cache)){
+				cache[id] = entity.object.material.color.getHex();
 				entity.object.material.color.setHex(0x3366ff);
-				current.push(index);
+				current.push(id);
 			}else{
 				selection.clear(entity);
 			}
@@ -114,15 +110,11 @@ define([
 		};
 
 		selection.clear = function(entity){
-			var bIndex = buildings.indexOf(entity && entity.object);
+			var id = entity && entity.object.id || -1;
 
 			current = current.filter(function(index, i){
-				if(bIndex === -1){
-					buildings[index].material.color.setHex(cache[index]);
-					delete cache[index];
-					return false;
-				}else if(index === bIndex){
-					buildings[index].material.color.setHex(cache[index]);
+				if(id === -1 || index === id){
+					entities.buildings.get(index).object.material.color.setHex(cache[index]);
 					delete cache[index];
 					return false;
 				}
@@ -147,7 +139,7 @@ define([
 
 			var ray = new THREE.Ray(camera.position, vector.subSelf(camera.position).normalize());
 
-			var intersects = ray.intersectObjects(buildings);
+			var intersects = ray.intersectObjects(entities.buildings.getCollision());
 
 			var action = (keyboard.isPressed('ctrl')) ? 'add' : 'select';
 			if(intersects.length > 0){

@@ -1,8 +1,7 @@
 define(['./Building'], function(Building){
 	var buildings = (function(){
-		var id = -1;
 		var list = [];
-		var collision = [];
+		var set = [];
 
 		var buildings = {
 			Building: Building,
@@ -10,12 +9,21 @@ define(['./Building'], function(Building){
 			create: function(){
 				var building = Building.create.apply(Building, arguments);
 
-				building.id = ++id;
-				building.object.id = building.id;
+				building.id = building.object.id;
 				list.push(building);
-				collision.push(building.object);
+				set[building.id] = building;
 
 				return building;
+			},
+
+			get: function(id){
+				return id in set && set[id];
+			},
+
+			getCollision: function(){
+				return list.map(function(building, b){
+					return building.object;
+				});
 			}
 		};
 
