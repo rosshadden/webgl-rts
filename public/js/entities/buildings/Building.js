@@ -36,7 +36,8 @@ define(['entities/Entity'], function(Entity){
 
 		render: function(){
 			return {
-				name: this.name
+				name: this.name,
+				items: this.items
 			};
 		}
 	});

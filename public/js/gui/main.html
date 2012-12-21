@@ -1,9 +1,8 @@
 <h1>{{name}}</h1>
 <ul>
-	<li class="structure">
-		<p>Barracks</p>
-	</li>
-	<li class="unit">
-		<p>Tank</p>
-	</li>
+	{{#each items}}
+		<li class="{{type}}">
+			<p>{{name}}</p>
+		</li>
+	{{/each}}
 </ul>

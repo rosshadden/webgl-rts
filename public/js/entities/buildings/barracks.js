@@ -17,7 +17,18 @@ define(['./Building'], function(Building){
 			Barracks.super.constructor.call(this, [50, 100, 25], position, materials);
 		},
 
-		name: 'Barracks'
+		name: 'Barracks',
+
+		items: [{
+			name: 'infantry',
+			type: 'unit'
+		}, {
+			name: 'rpg',
+			type: 'unit'
+		}, {
+			name: 'engineer',
+			type: 'unit'
+		}]
 	});
 
 	return Barracks;

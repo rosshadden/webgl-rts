@@ -17,7 +17,15 @@ define(['./Building'], function(Building){
 			CommandCenter.super.constructor.call(this, [100, 100, 50], position, materials);
 		},
 
-		name: 'Command Center'
+		name: 'Command Center',
+
+		items: [{
+			name: 'power-plant',
+			type: 'structure'
+		}, {
+			name: 'mcv',
+			type: 'unit'
+		}]
 	});
 
 	return CommandCenter;
