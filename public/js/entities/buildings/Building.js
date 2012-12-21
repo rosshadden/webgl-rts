@@ -12,12 +12,13 @@ define(['entities/Entity'], function(Entity){
 
 			this.object.position.set(position.x || 0, position.y || 0, position.z || 0);
 
+			this.cache = {};
 			this.cache.material = this.object.material.clone();
 		},
 
 		name: 'building',
 		type: 'building',
-		cache: {},
+		cache: null,
 		gui: '[[gui]]',
 
 		paint: function(){

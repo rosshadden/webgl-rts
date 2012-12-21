@@ -14,7 +14,7 @@ define(['../Building'], function(Building){
 				new THREE.MeshBasicMaterial({ color: 0x000000 })
 			];
 
-			this.super.constructor.call(this, [50, 100, 25], position, materials);
+			Barracks.super.constructor.call(this, [50, 100, 25], position, materials);
 		},
 
 		name: 'barracks',

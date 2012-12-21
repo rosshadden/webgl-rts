@@ -14,7 +14,7 @@ define(['../Building', 'text!./gui.html'], function(Building, html){
 				new THREE.MeshBasicMaterial({ color: 0x000000 })
 			];
 
-			this.super.constructor.call(this, [100, 100, 50], position, materials);
+			CommandCenter.super.constructor.call(this, [100, 100, 50], position, materials);
 		},
 
 		name: 'command center',
