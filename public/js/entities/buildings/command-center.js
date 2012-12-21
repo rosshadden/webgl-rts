@@ -1,4 +1,4 @@
-define(['../Building', 'text!./gui.html'], function(Building, html){
+define(['./Building'], function(Building){
 	var CommandCenter = Building.extend({
 		init: function(){
 			this.super.init.call(this);
@@ -17,9 +17,7 @@ define(['../Building', 'text!./gui.html'], function(Building, html){
 			CommandCenter.super.constructor.call(this, [100, 100, 50], position, materials);
 		},
 
-		name: 'command center',
-
-		gui: html
+		name: 'Command Center'
 	});
 
 	return CommandCenter;

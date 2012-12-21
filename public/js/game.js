@@ -88,7 +88,7 @@ define([
 
 			current.push(id);
 			cache[id] = entities.buildings.get(id).select();
-			gui.render(cache[id].paint());
+			gui.render(cache[id].render());
 
 			return selection;
 		};

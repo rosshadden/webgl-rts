@@ -1,4 +1,4 @@
-define(['../Building'], function(Building){
+define(['./Building'], function(Building){
 	var Barracks = Building.extend({
 		init: function(){
 			this.super.init.call(this);
@@ -17,9 +17,7 @@ define(['../Building'], function(Building){
 			Barracks.super.constructor.call(this, [50, 100, 25], position, materials);
 		},
 
-		name: 'barracks',
-
-		gui: '<h1>Barracks</h1><p>These things are the shit.</p>'
+		name: 'Barracks'
 	});
 
 	return Barracks;

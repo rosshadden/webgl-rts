@@ -19,11 +19,6 @@ define(['entities/Entity'], function(Entity){
 		name: 'building',
 		type: 'building',
 		cache: null,
-		gui: '[[gui]]',
-
-		paint: function(){
-			return this.gui();
-		},
 
 		select: function(){
 			this.object.material = new THREE.MeshBasicMaterial({
@@ -37,6 +32,12 @@ define(['entities/Entity'], function(Entity){
 			this.object.material = this.cache.material;
 
 			return this;
+		},
+
+		render: function(){
+			return {
+				name: this.name
+			};
 		}
 	});
 

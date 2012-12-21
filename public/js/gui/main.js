@@ -1,9 +1,10 @@
-define(function(){
+define(['text!./main.html'], function(html){
 	var $gui = $('#main');
+	var main = Handlebars.compile(html);
 
 	var gui = {
-		render: function(content){
-			$gui.html(content);
+		render: function(data){
+			$gui.html(main(data));
 		},
 
 		clear: function(){
