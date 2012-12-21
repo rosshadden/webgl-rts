@@ -18,9 +18,9 @@ define([
 	var mouse = {
 		position: {
 			x: 0,
-			y: 0,
-			z: 0
-		}
+			y: 0
+		},
+		cache: {}
 	};
 
 	var scene, camera, projector, renderer;
@@ -197,6 +197,10 @@ define([
 				camera.position.z = position;
 			}
 		})
+		.on('mousemove', function(event){
+			mouse.position.x = event.clientX;
+			mouse.position.y = event.clientY;
+		})
 		.on('contextmenu', function(event){
 			event.preventDefault();
 		});
@@ -232,7 +236,16 @@ define([
 			camera.lookAt({});
 		}
 		if(keyboard.isPressed('e')){
-			camera.lookAt(scene.position);
+			log(mouse.position.x, mouse.cache.x);
+			// camera.lookAt(scene.position);
+			camera.lookAt({
+				x: mouse.position.x - mouse.cache.x,
+				y: -mouse.position.y + mouse.cache.y,
+				z: 0
+			});
+		}else{
+			mouse.cache.x = mouse.position.x;
+			mouse.cache.y = mouse.position.y;
 		}
 	};
 
