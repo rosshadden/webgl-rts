@@ -1,4 +1,4 @@
-define(['./Building', './CommandCenter', './Barracks'], function(Building, CommandCenter, Barracks){
+define(['./Building', './command-center/main', './barracks/main'], function(Building, CommandCenter, Barracks){
 	var buildings = (function(){
 		var list = [];
 		var set = {};
