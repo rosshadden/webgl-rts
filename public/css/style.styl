@@ -11,10 +11,10 @@ canvas
 	z-index -1
 #main
 	absolute right top 50%
-	width 100px
+	width 75px
 	height 800px
 	margin -400px 0 0
-	padding 10px
+	padding 10px 0
 	border 1px solid black
 	border-right 0
 	border-radius left 8px
@@ -31,13 +31,11 @@ canvas
 	li
 		width 64px
 		height 64px
-		margin 0 auto
+		margin 0 0 0 8px
 		border 1px solid black
 		background rgba(200, 100, 100, .5)
 		cursor pointer
-		transition .2s ease-out
 		&:hover
 			background lighten(@background, 20%)
 		&:active
-			background lighten(@background, 40%)
-			transition-duration 0s
+			background saturate(@background, 80%)
