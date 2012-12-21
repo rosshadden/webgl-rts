@@ -6,15 +6,15 @@ define(['./Building'], function(Building){
 
 		constructor: function(position){
 			var materials = [
-				new THREE.MeshBasicMaterial({ color: 0xC4B24D }),
-				new THREE.MeshBasicMaterial({ color: 0xC4B24D }),
-				new THREE.MeshBasicMaterial({ color: 0xC4B24D }),
-				new THREE.MeshBasicMaterial({ color: 0xC4B24D }),
-				new THREE.MeshBasicMaterial({ color: 0x663333 }),
+				new THREE.MeshBasicMaterial({ color: 0x339933 }),
+				new THREE.MeshBasicMaterial({ color: 0x339933 }),
+				new THREE.MeshBasicMaterial({ color: 0x339933 }),
+				new THREE.MeshBasicMaterial({ color: 0x339933 }),
+				new THREE.MeshBasicMaterial({ color: 0x336633 }),
 				new THREE.MeshBasicMaterial({ color: 0x000000 })
 			];
 
-			CommandCenter.super.constructor.call(this, [100, 100, 50], position, materials);
+			CommandCenter.super.constructor.call(this, [50, 50, 200], position, materials);
 		},
 
 		name: 'Power Plant'

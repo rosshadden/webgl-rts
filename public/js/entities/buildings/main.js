@@ -11,8 +11,8 @@ define([
 		var buildings = {
 			types: {
 				building: Building,
-				cc: CommandCenter,
-				pp: PowerPlant,
+				'command-center': CommandCenter,
+				'power-plant': PowerPlant,
 				barracks: Barracks
 			},
 
