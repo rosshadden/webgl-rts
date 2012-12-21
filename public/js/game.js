@@ -1,7 +1,8 @@
 define([
 	'lib/keyboard',
-	'entities'
-], function(keyboard, entities){
+	'entities',
+	'gui/main'
+], function(keyboard, entities, gui){
 	window.entities = entities;
 
 	var dimensions = {
@@ -154,12 +155,12 @@ define([
 			var action = (keyboard.isPressed('ctrl')) ? 'add' : 'select';
 			if(intersects.length > 0){
 				selection[action](intersects[0]);
-				$('#main').html(
+				gui.render(
 					entities.buildings.get(intersects[0].object.id).paint()
 				);
 			}else{
 				selection.clear();
-				$('#main').html('');
+				gui.clear();
 			}
 		})
 		.on('mousedown', function(event){
