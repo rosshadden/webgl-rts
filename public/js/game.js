@@ -43,7 +43,7 @@ define([
 		document.body.appendChild(renderer.domElement);
 
 
-		var floor = new THREE.Mesh(
+		var ground = new THREE.Mesh(
 			new THREE.PlaneGeometry(dimensions.width, dimensions.height, 1, 1),
 			new THREE.MeshBasicMaterial({
 				color: 0x003300
@@ -71,7 +71,7 @@ define([
 
 		scene.add(skyBox);
 		scene.add(light);
-		scene.add(floor);
+		scene.add(ground);
 		scene.add(commandCenter.object);
 		scene.add(powerPlant.object);
 	})();
