@@ -63,21 +63,11 @@ define([
 			x: 200,
 			y: 200
 		});
-		commandCenter.object.data = {
-			name: 'Command Center',
-			type: 'building',
-			cache: {}
-		};
 
 		var barracks = entities.buildings.create('barracks', {
 			x: 100,
 			y: 100
 		});
-		barracks.object.data = {
-			name: 'Barracks',
-			type: 'building',
-			cache: {}
-		};
 
 		scene.add(skyBox);
 		scene.add(light);
@@ -98,8 +88,8 @@ define([
 				selection.clear();
 			}
 
-			cache[id] = entity.object.material.color.getHex();
-			entity.object.material.color.setHex(0x3366ff);
+			cache[id] = entities.buildings.get(id);
+			cache[id].select();
 			current.push(id);
 
 			return selection;
@@ -109,8 +99,8 @@ define([
 			var id = entity.object.id;
 
 			if(!(id in cache)){
-				cache[id] = entity.object.material.color.getHex();
-				entity.object.material.color.setHex(0x3366ff);
+				cache[id] = entity;
+				cache[id].select();
 				current.push(id);
 			}else{
 				selection.clear(entity);
@@ -124,7 +114,7 @@ define([
 
 			current = current.filter(function(index, i){
 				if(id === -1 || index === id){
-					entities.buildings.get(index).object.material.color.setHex(cache[index]);
+					entities.buildings.get(index).deselect();
 					delete cache[index];
 					return false;
 				}
@@ -236,7 +226,6 @@ define([
 			camera.lookAt({});
 		}
 		if(keyboard.isPressed('e')){
-			log(mouse.position.x, mouse.cache.x);
 			// camera.lookAt(scene.position);
 			camera.lookAt({
 				x: mouse.position.x - mouse.cache.x,

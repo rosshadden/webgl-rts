@@ -5,7 +5,16 @@ define(['../Building'], function(Building){
 		},
 
 		constructor: function(position){
-			Barracks.super.constructor.call(this, [50, 100, 25], position, 0x663399);
+			var materials = [
+				new THREE.MeshBasicMaterial({ color: 0x663399 }),
+				new THREE.MeshBasicMaterial({ color: 0x663399 }),
+				new THREE.MeshBasicMaterial({ color: 0x663399 }),
+				new THREE.MeshBasicMaterial({ color: 0x663399 }),
+				new THREE.MeshBasicMaterial({ color: 0x23328D }),
+				new THREE.MeshBasicMaterial({ color: 0x000000 })
+			];
+
+			this.super.constructor.call(this, [50, 100, 25], position, materials);
 		},
 
 		name: 'barracks',

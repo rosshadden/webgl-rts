@@ -5,7 +5,16 @@ define(['../Building', 'text!./gui.html'], function(Building, html){
 		},
 
 		constructor: function(position){
-			this.super.constructor.call(this, [100, 100, 50], position, 0x663333);
+			var materials = [
+				new THREE.MeshBasicMaterial({ color: 0xC4B24D }),
+				new THREE.MeshBasicMaterial({ color: 0xC4B24D }),
+				new THREE.MeshBasicMaterial({ color: 0xC4B24D }),
+				new THREE.MeshBasicMaterial({ color: 0xC4B24D }),
+				new THREE.MeshBasicMaterial({ color: 0x663333 }),
+				new THREE.MeshBasicMaterial({ color: 0x000000 })
+			];
+
+			this.super.constructor.call(this, [100, 100, 50], position, materials);
 		},
 
 		name: 'command center',
