@@ -10,25 +10,28 @@ canvas
 	user-select none
 	z-index -1
 #main
-	absolute bottom left 50%
-	width 800px
-	height 100px
-	margin 0 0 0 -400px
+	absolute right top 50%
+	width 100px
+	height 800px
+	margin -400px 0 0
 	padding 10px
 	border 1px solid black
-	border-bottom 0
-	border-radius 8px 8px 0 0
+	border-right 0
+	border-radius left 8px
 	background rgba(100, 100, 200, .5)
 	font-size 18px
 	overflow hidden
+	overflow-y auto
 	h1, p, ul
 		reset-box-model()
+	h1
+		font-size 18px
 	ul
 		list-style none
 	li
-		float left
 		width 64px
 		height 64px
+		margin 0 auto
 		border 1px solid black
 		background rgba(200, 100, 100, .5)
 		cursor pointer
