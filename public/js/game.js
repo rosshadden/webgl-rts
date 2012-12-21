@@ -84,13 +84,11 @@ define([
 		selection.select = function(entity){
 			var id = entity.object.id;
 
-			if(!~current.indexOf(id)){
-				selection.clear();
-			}
+			selection.clear();
 
-			cache[id] = entities.buildings.get(id);
-			cache[id].select();
 			current.push(id);
+			cache[id] = entities.buildings.get(id).select();
+			gui.render(cache[id].paint());
 
 			return selection;
 		};
@@ -98,10 +96,11 @@ define([
 		selection.add = function(entity){
 			var id = entity.object.id;
 
-			if(!(id in cache)){
-				cache[id] = entity;
+			if(!~current.indexOf(id)){
+				cache[id] = entities.buildings.get(id);
 				cache[id].select();
 				current.push(id);
+				gui.clear();
 			}else{
 				selection.clear(entity);
 			}
@@ -120,6 +119,7 @@ define([
 				}
 				return true;
 			});
+			gui.clear();
 
 			return selection;
 		};
@@ -145,12 +145,8 @@ define([
 			var action = (keyboard.isPressed('ctrl')) ? 'add' : 'select';
 			if(intersects.length > 0){
 				selection[action](intersects[0]);
-				gui.render(
-					entities.buildings.get(intersects[0].object.id).paint()
-				);
 			}else{
 				selection.clear();
-				gui.clear();
 			}
 		})
 		.on('mousedown', function(event){
