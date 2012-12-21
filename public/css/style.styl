@@ -20,3 +20,21 @@ canvas
 	border-radius 8px 8px 0 0
 	background rgba(100, 100, 200, .5)
 	font-size 18px
+	overflow hidden
+	h1, p, ul
+		reset-box-model()
+	ul
+		list-style none
+	.unit
+		float left
+		width 64px
+		height 64px
+		border 1px solid black
+		background rgba(200, 100, 100, .5)
+		cursor pointer
+		transition .2s ease-out
+		&:hover
+			background lighten(@background, 20%)
+		&:active
+			background lighten(@background, 40%)
+			transition-duration 0s
