@@ -5,6 +5,11 @@ define([
 	window.entities = entities;
 
 	var dimensions = {
+		width: 1920,
+		height: 1080
+	};
+
+	var viewport = {
 		width: window.innerWidth,
 		height: window.innerHeight
 	};
@@ -26,14 +31,14 @@ define([
 		light.position.set(0, 0, 200);
 
 		//	CAMERA.
-		camera = new THREE.PerspectiveCamera(75, dimensions.width / dimensions.height, 0.1, 20000);
+		camera = new THREE.PerspectiveCamera(75, viewport.width / viewport.height, 0.1, 20000);
 		camera.position.set(0, 0, 400);
 
 		projector = new THREE.Projector();
 
 		//	ACTION.
 		renderer = new THREE.WebGLRenderer();
-		renderer.setSize(dimensions.width, dimensions.height);
+		renderer.setSize(viewport.width, viewport.height);
 		document.body.appendChild(renderer.domElement);
 
 
@@ -138,7 +143,8 @@ define([
 		.on('click', function(event){
 			event.preventDefault();
 
-			var vector = new THREE.Vector3((event.clientX / dimensions.width) * 2 - 1, -(event.clientY / dimensions.height) * 2 + 1, 0.5);
+			var vector = new THREE.Vector3((event.clientX / viewport.width) * 2 - 1, -(event.clientY / viewport.height) * 2 + 1, 0.5);
+
 			projector.unprojectVector(vector, camera);
 
 			var ray = new THREE.Ray(camera.position, vector.subSelf(camera.position).normalize());
@@ -192,6 +198,14 @@ define([
 		})
 		.on('contextmenu', function(event){
 			event.preventDefault();
+		});
+
+		$(window).on('resize', function(){
+			viewport.width = window.innerWidth;
+			viewport.height = window.innerHeight;
+			renderer.setSize(viewport.width, viewport.height);
+			camera.aspect = viewport.width / viewport.height;
+			camera.updateProjectionMatrix();
 		});
 	})();
 
