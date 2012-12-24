@@ -87,8 +87,8 @@ define([
 			var placementHandler = function(event){
 				if(event.which === 1){
 					game.place(entity, {
-						x: -50,
-						y: 250
+						x: event.clientX,
+						y: event.clientY
 					});
 				}else{
 					game.$canvas.one('click', placementHandler);
