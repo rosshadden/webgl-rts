@@ -20,6 +20,10 @@ define(['entities/Entity'], function(Entity){
 		type: 'building',
 		cache: null,
 
+		build: function(item){
+			log(this.items[item]);
+		},
+
 		select: function(){
 			this.object.material = new THREE.MeshBasicMaterial({
 				color: 0x3366ff
@@ -36,6 +40,7 @@ define(['entities/Entity'], function(Entity){
 
 		render: function(){
 			return {
+				id: this.id,
 				name: this.name,
 				items: this.items
 			};

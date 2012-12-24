@@ -127,6 +127,11 @@ define([
 		return selection;
 	})();
 
+	//	This belongs in controller.js once I move stuff around.
+	$(gui).on('request', function(event, item){
+		entities.buildings.get(item.from).build(item.for);
+	});
+
 	//	EVENTS.
 	(function(){
 		var $canvas = $('canvas');
