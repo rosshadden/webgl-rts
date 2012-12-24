@@ -26,6 +26,9 @@ define(['./Building'], function(Building){
 				name: 'power-plant',
 				type: 'structure'
 			}, {
+				name: 'barracks',
+				type: 'structure'
+			}, {
 				name: 'mcv',
 				type: 'unit'
 			}]

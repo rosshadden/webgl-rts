@@ -74,7 +74,7 @@ define([
 		game.build = function(item){
 			var entity;
 			if(item.type === 'structure'){
-				entity = entities.buildings.create('power-plant', {
+				entity = entities.buildings.create(item.name, {
 					x: -50,
 					y: 250
 				});
