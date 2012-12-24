@@ -1,32 +1,36 @@
 define(['./Building'], function(Building){
-	var CommandCenter = Building.extend({
-		init: function(){
-			this.super.init.call(this);
-		},
+	return function(game){
+		Building = Building(game);
 
-		constructor: function(position){
-			var materials = [
-				new THREE.MeshBasicMaterial({ color: 0xC4B24D }),
-				new THREE.MeshBasicMaterial({ color: 0xC4B24D }),
-				new THREE.MeshBasicMaterial({ color: 0xC4B24D }),
-				new THREE.MeshBasicMaterial({ color: 0xC4B24D }),
-				new THREE.MeshBasicMaterial({ color: 0x663333 }),
-				new THREE.MeshBasicMaterial({ color: 0x000000 })
-			];
+		var CommandCenter = Building.extend({
+			init: function(){
+				this.super.init.call(this);
+			},
 
-			CommandCenter.super.constructor.call(this, [100, 100, 50], position, materials);
-		},
+			constructor: function(position){
+				var materials = [
+					new THREE.MeshBasicMaterial({ color: 0xC4B24D }),
+					new THREE.MeshBasicMaterial({ color: 0xC4B24D }),
+					new THREE.MeshBasicMaterial({ color: 0xC4B24D }),
+					new THREE.MeshBasicMaterial({ color: 0xC4B24D }),
+					new THREE.MeshBasicMaterial({ color: 0x663333 }),
+					new THREE.MeshBasicMaterial({ color: 0x000000 })
+				];
 
-		name: 'Command Center',
+				CommandCenter.super.constructor.call(this, [100, 100, 50], position, materials);
+			},
 
-		items: [{
-			name: 'power-plant',
-			type: 'structure'
-		}, {
-			name: 'mcv',
-			type: 'unit'
-		}]
-	});
+			name: 'Command Center',
 
-	return CommandCenter;
+			items: [{
+				name: 'power-plant',
+				type: 'structure'
+			}, {
+				name: 'mcv',
+				type: 'unit'
+			}]
+		});
+
+		return CommandCenter;
+	};
 });

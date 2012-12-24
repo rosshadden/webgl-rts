@@ -1,24 +1,28 @@
 define(['./Building'], function(Building){
-	var CommandCenter = Building.extend({
-		init: function(){
-			this.super.init.call(this);
-		},
+	return function(game){
+		Building = Building(game);
 
-		constructor: function(position){
-			var materials = [
-				new THREE.MeshBasicMaterial({ color: 0x339933 }),
-				new THREE.MeshBasicMaterial({ color: 0x339933 }),
-				new THREE.MeshBasicMaterial({ color: 0x339933 }),
-				new THREE.MeshBasicMaterial({ color: 0x339933 }),
-				new THREE.MeshBasicMaterial({ color: 0x336633 }),
-				new THREE.MeshBasicMaterial({ color: 0x000000 })
-			];
+		var CommandCenter = Building.extend({
+			init: function(){
+				this.super.init.call(this);
+			},
 
-			CommandCenter.super.constructor.call(this, [50, 50, 200], position, materials);
-		},
+			constructor: function(position){
+				var materials = [
+					new THREE.MeshBasicMaterial({ color: 0x339933 }),
+					new THREE.MeshBasicMaterial({ color: 0x339933 }),
+					new THREE.MeshBasicMaterial({ color: 0x339933 }),
+					new THREE.MeshBasicMaterial({ color: 0x339933 }),
+					new THREE.MeshBasicMaterial({ color: 0x336633 }),
+					new THREE.MeshBasicMaterial({ color: 0x000000 })
+				];
 
-		name: 'Power Plant'
-	});
+				CommandCenter.super.constructor.call(this, [50, 50, 200], position, materials);
+			},
 
-	return CommandCenter;
+			name: 'Power Plant'
+		});
+
+		return CommandCenter;
+	};
 });

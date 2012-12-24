@@ -3,8 +3,6 @@ define([
 	'entities',
 	'gui/main'
 ], function(keyboard, entities, gui){
-	window.entities = entities;
-
 	var dimensions = {
 		width: 1920,
 		height: 1080
@@ -22,6 +20,16 @@ define([
 		},
 		cache: {}
 	};
+
+	var game = (function(){
+		var game = {};
+
+
+		return game;
+	})();
+
+	entities = entities(game);
+	window.entities = entities;
 
 	var scene, camera, projector, renderer;
 	var init = (function(){
@@ -130,6 +138,10 @@ define([
 	//	This belongs in controller.js once I move stuff around.
 	$(gui).on('request', function(event, item){
 		entities.buildings.get(item.from).build(item.for);
+	});
+
+	$(game).on('build', function(event, item){
+		log('build!', item);
 	});
 
 	//	EVENTS.

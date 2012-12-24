@@ -1,7 +1,11 @@
 define(['./Entity', './buildings/main'], function(Entity, buildings){
-	var entities = {};
-	entities.Entity = Entity;
-	entities.buildings = buildings;
+	return function(game){
+		buildings = buildings(game);
 
-	return entities;
+		var entities = {};
+		entities.Entity = Entity;
+		entities.buildings = buildings;
+
+		return entities;
+	};
 });
