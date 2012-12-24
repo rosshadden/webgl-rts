@@ -25,6 +25,8 @@ define([
 	var game = (function(){
 		var game = {};
 
+		game.$canvas = null;
+
 		game.init = function(){
 			scene = new THREE.Scene();
 
@@ -42,6 +44,7 @@ define([
 			renderer = new THREE.WebGLRenderer();
 			renderer.setSize(viewport.width, viewport.height);
 			document.body.appendChild(renderer.domElement);
+			this.$canvas = $(renderer.domElement);
 
 
 			var ground = new THREE.Mesh(
@@ -72,6 +75,8 @@ define([
 		};
 
 		game.build = function(item){
+			var game = this;
+
 			var entity;
 			if(item.type === 'structure'){
 				entity = entities.buildings.create(item.name);
@@ -79,10 +84,18 @@ define([
 
 			}
 
-			this.place(entity, {
-				x: -50,
-				y: 250
-			});
+			var placementHandler = function(event){
+				if(event.which === 1){
+					game.place(entity, {
+						x: -50,
+						y: 250
+					});
+				}else{
+					game.$canvas.one('click', placementHandler);
+				}
+			};
+
+			game.$canvas.one('click', placementHandler);
 
 			return game;
 		};
@@ -91,7 +104,7 @@ define([
 			entity.setPosition(position);
 			scene.add(entity.object);
 
-			return game;
+			return this;
 		};
 
 		return game;
@@ -160,8 +173,7 @@ define([
 
 	//	EVENTS.
 	(function(){
-		var $canvas = $('canvas');
-		$canvas
+		game.$canvas
 		.on('click', function(event){
 			event.preventDefault();
 
@@ -187,11 +199,11 @@ define([
 				y = event.offsetY;
 
 			if(event.which === 1){
-				$canvas.css('cursor', 'crosshair');
+				game.$canvas.css('cursor', 'crosshair');
 			}else if(event.which === 2){
-				$canvas.css('cursor', 'all-scroll');
+				game.$canvas.css('cursor', 'all-scroll');
 			}else if(event.which === 3){
-				$canvas
+				game.$canvas
 				.css('cursor', 'move')
 				.on('mousemove.drag', function(event){
 					camera.position.x += (x - event.offsetX) / 2;
@@ -202,7 +214,7 @@ define([
 			}
 		})
 		.on('mouseup', function(event){
-			$canvas
+			game.$canvas
 			.css('cursor', 'auto')
 			.unbind('mousemove.drag');
 		})
