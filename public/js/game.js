@@ -65,24 +65,23 @@ define([
 				y: 200
 			});
 
-			var powerPlant = entities.buildings.create('power-plant', {
-				x: -50,
-				y: 250
-			});
-
 			scene.add(skyBox);
 			scene.add(light);
 			scene.add(ground);
 			scene.add(commandCenter.object);
-			scene.add(powerPlant.object);
 		};
 
 		game.build = function(item){
+			var entity;
 			if(item.type === 'structure'){
-
+				entity = entities.buildings.create('power-plant', {
+					x: -50,
+					y: 250
+				});
 			}else if(item.type === 'unit'){
 
 			}
+			scene.add(entity.object);
 
 			return game;
 		};
