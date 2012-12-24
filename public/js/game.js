@@ -74,13 +74,21 @@ define([
 		game.build = function(item){
 			var entity;
 			if(item.type === 'structure'){
-				entity = entities.buildings.create(item.name, {
-					x: -50,
-					y: 250
-				});
+				entity = entities.buildings.create(item.name);
 			}else if(item.type === 'unit'){
 
 			}
+
+			this.place(entity, {
+				x: -50,
+				y: 250
+			});
+
+			return game;
+		};
+
+		game.place = function(entity, position){
+			entity.setPosition(position);
 			scene.add(entity.object);
 
 			return game;

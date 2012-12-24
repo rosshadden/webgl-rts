@@ -11,7 +11,9 @@ define(['entities/Entity'], function(Entity){
 					new THREE.MeshFaceMaterial(faces)
 				);
 
-				this.object.position.set(position.x || 0, position.y || 0, position.z || 0);
+				if(position){
+					this.setPosition(position);
+				}
 
 				this.cache = {};
 				this.cache.material = this.object.material.clone();
