@@ -23,7 +23,15 @@ define([
 
 	var game = (function(){
 		var game = {};
+		game.build = function(item){
+			if(item.type === 'structure'){
 
+			}else if(item.type === 'unit'){
+
+			}
+
+			return game;
+		};
 
 		return game;
 	})();
@@ -138,10 +146,6 @@ define([
 	//	This belongs in controller.js once I move stuff around.
 	$(gui).on('request', function(event, item){
 		entities.buildings.get(item.from).build(item.for);
-	});
-
-	$(game).on('build', function(event, item){
-		log('build!', item);
 	});
 
 	//	EVENTS.
