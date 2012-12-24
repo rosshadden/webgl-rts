@@ -21,8 +21,62 @@ define([
 		cache: {}
 	};
 
+	var scene, camera, projector, renderer;
 	var game = (function(){
 		var game = {};
+
+		game.init = function(){
+			scene = new THREE.Scene();
+
+			//	LIGHTS.
+			var light = new THREE.PointLight(0xffffff);
+			light.position.set(0, 0, 200);
+
+			//	CAMERA.
+			camera = new THREE.PerspectiveCamera(75, viewport.width / viewport.height, 0.1, 20000);
+			camera.position.set(0, 0, 8e2);
+
+			projector = new THREE.Projector();
+
+			//	ACTION.
+			renderer = new THREE.WebGLRenderer();
+			renderer.setSize(viewport.width, viewport.height);
+			document.body.appendChild(renderer.domElement);
+
+
+			var ground = new THREE.Mesh(
+				new THREE.PlaneGeometry(dimensions.width, dimensions.height, 1, 1),
+				new THREE.MeshBasicMaterial({
+					color: 0x003300
+				})
+			);
+
+			var skyBox = new THREE.Mesh(
+				new THREE.CubeGeometry(10000, 10000, 10000),
+				new THREE.MeshBasicMaterial({
+					color: 0xff0000
+				})
+			);
+			skyBox.flipSided = true;
+			scene.fog = new THREE.FogExp2(0x000000, 1e-4);
+
+			var commandCenter = entities.buildings.create('command-center', {
+				x: 200,
+				y: 200
+			});
+
+			var powerPlant = entities.buildings.create('power-plant', {
+				x: -50,
+				y: 250
+			});
+
+			scene.add(skyBox);
+			scene.add(light);
+			scene.add(ground);
+			scene.add(commandCenter.object);
+			scene.add(powerPlant.object);
+		};
+
 		game.build = function(item){
 			if(item.type === 'structure'){
 
@@ -39,58 +93,7 @@ define([
 	entities = entities(game);
 	window.entities = entities;
 
-	var scene, camera, projector, renderer;
-	var init = (function(){
-		scene = new THREE.Scene();
-
-		//	LIGHTS.
-		var light = new THREE.PointLight(0xffffff);
-		light.position.set(0, 0, 200);
-
-		//	CAMERA.
-		camera = new THREE.PerspectiveCamera(75, viewport.width / viewport.height, 0.1, 20000);
-		camera.position.set(0, 0, 8e2);
-
-		projector = new THREE.Projector();
-
-		//	ACTION.
-		renderer = new THREE.WebGLRenderer();
-		renderer.setSize(viewport.width, viewport.height);
-		document.body.appendChild(renderer.domElement);
-
-
-		var ground = new THREE.Mesh(
-			new THREE.PlaneGeometry(dimensions.width, dimensions.height, 1, 1),
-			new THREE.MeshBasicMaterial({
-				color: 0x003300
-			})
-		);
-
-		var skyBox = new THREE.Mesh(
-			new THREE.CubeGeometry(10000, 10000, 10000),
-			new THREE.MeshBasicMaterial({
-				color: 0xff0000
-			})
-		);
-		skyBox.flipSided = true;
-		scene.fog = new THREE.FogExp2(0x000000, 1e-4);
-
-		var commandCenter = entities.buildings.create('command-center', {
-			x: 200,
-			y: 200
-		});
-
-		var powerPlant = entities.buildings.create('power-plant', {
-			x: -50,
-			y: 250
-		});
-
-		scene.add(skyBox);
-		scene.add(light);
-		scene.add(ground);
-		scene.add(commandCenter.object);
-		scene.add(powerPlant.object);
-	})();
+	game.init();
 
 	var selection = (function(){
 		var current = [];
