@@ -24,7 +24,9 @@ define(['entities/Entity'], function(Entity){
 			cache: null,
 
 			build: function(item){
-				game.build(this.items[item]);
+				game.build(this.items[item.for]);
+
+				return this;
 			},
 
 			select: function(){

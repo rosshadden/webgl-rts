@@ -80,23 +80,28 @@ define([
 		game.build = function(item){
 			var game = this;
 
-			var entity;
-			if(item.type === 'structure'){
-				entity = entities.buildings.create(item.name);
-			}else if(item.type === 'unit'){
+			if(game.money - item.cost >= 0){
+				var entity;
+				if(item.type === 'structure'){
+					entity = entities.buildings.create(item.name);
+				}else if(item.type === 'unit'){
 
-			}
-
-			game.$canvas.on('click.spawn', function(event){
-				if(event.which === 1){
-					game.spawn(entity, {
-						x: event.clientX,
-						y: event.clientY
-					});
-
-					game.$canvas.unbind('click.spawn');
 				}
-			});
+
+				game.$canvas.on('click.spawn', function(event){
+					if(event.which === 1){
+						game.spawn(entity, {
+							x: event.clientX,
+							y: event.clientY
+						});
+
+						game.$canvas.unbind('click.spawn');
+					}
+				});
+
+				game.money -= item.cost;
+				gui.updateMoney(game.money);
+			}
 
 			return game;
 		};
@@ -169,7 +174,8 @@ define([
 
 	//	This belongs in controller.js once I move stuff around.
 	$(gui).on('request', function(event, item){
-		entities.buildings.get(item.from).build(item.for);
+		item.money = game.money;
+		entities.buildings.get(item.from).build(item);
 	});
 
 	//	EVENTS.
