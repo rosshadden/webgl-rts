@@ -88,18 +88,22 @@ define([
 
 				}
 
-				game.$canvas.one('click.build', function(event){
-					if(event.which === 1){
-						game.spawn(entity, {
-							x: event.clientX - dimensions.width / 2,
-							y: -(event.clientY - dimensions.height / 2)
-						});
+				gui.build(item);
 
-						game.money -= item.cost;
-						gui.updateMoney(game.money);
-					}
-					//	BUG:  WHY DOESN'T THIS FIRE WHEN RIGHT CLICKING?
-				});
+				setTimeout(function(){
+					game.$canvas.one('click.build', function(event){
+						if(event.which === 1){
+							game.spawn(entity, {
+								x: event.clientX - dimensions.width / 2,
+								y: -(event.clientY - dimensions.height / 2)
+							});
+
+							game.money -= item.cost;
+							gui.updateMoney(game.money);
+						}
+						//	BUG:  WHY DOESN'T THIS FIRE WHEN RIGHT CLICKING?
+					});
+				}, item.cost);
 			}
 
 			return game;

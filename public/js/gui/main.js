@@ -5,7 +5,8 @@ define(['text!./head.html', 'text!./body.html'], function(headHTML, bodyHTML){
 		$head = $gui.children('header'),
 		$body = $gui.children('section');
 
-	var current;
+	var current, $currentItem;
+
 	var gui = {
 		render: function(data){
 			current = data;
@@ -19,6 +20,12 @@ define(['text!./head.html', 'text!./body.html'], function(headHTML, bodyHTML){
 			return this;
 		},
 
+		build: function(){
+			$currentItem
+			.addClass('building');
+			return this;
+		},
+
 		clear: function(){
 			current = null;
 			$body.html('');
@@ -26,6 +33,7 @@ define(['text!./head.html', 'text!./body.html'], function(headHTML, bodyHTML){
 	};
 
 	$body.on('click', '.item', function(){
+		$currentItem = $(this);
 		$(gui).trigger('request', {
 			from: current.id,
 			for: $(this).attr('data-index')

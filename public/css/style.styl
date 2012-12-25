@@ -41,3 +41,10 @@ aside
 			background lighten(@background, 20%)
 		&:active
 			background saturate(@background, 80%)
+		&.building
+			animation build 1.4s 1 linear
+@keyframes build
+	0%
+		transform rotate(0deg)
+	100%
+		transform rotate(360deg)
