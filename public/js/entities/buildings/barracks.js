@@ -24,13 +24,16 @@ define(['./Building'], function(Building){
 
 			items: [{
 				name: 'infantry',
-				type: 'unit'
+				type: 'unit',
+				cost: 200
 			}, {
 				name: 'rpg',
-				type: 'unit'
+				type: 'unit',
+				cost: 400
 			}, {
 				name: 'engineer',
-				type: 'unit'
+				type: 'unit',
+				cost: 300
 			}]
 		});
 

@@ -84,23 +84,21 @@ define([
 
 			}
 
-			var placementHandler = function(event){
+			game.$canvas.on('click.spawn', function(event){
 				if(event.which === 1){
-					game.place(entity, {
+					game.spawn(entity, {
 						x: event.clientX,
 						y: event.clientY
 					});
-				}else{
-					game.$canvas.one('click', placementHandler);
-				}
-			};
 
-			game.$canvas.one('click', placementHandler);
+					game.$canvas.unbind('click.spawn');
+				}
+			});
 
 			return game;
 		};
 
-		game.place = function(entity, position){
+		game.spawn = function(entity, position){
 			entity.setPosition(position);
 			scene.add(entity.object);
 

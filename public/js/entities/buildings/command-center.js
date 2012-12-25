@@ -24,13 +24,16 @@ define(['./Building'], function(Building){
 
 			items: [{
 				name: 'power-plant',
-				type: 'structure'
+				type: 'structure',
+				cost: 400
 			}, {
 				name: 'barracks',
-				type: 'structure'
+				type: 'structure',
+				cost: 800
 			}, {
 				name: 'mcv',
-				type: 'unit'
+				type: 'unit',
+				cost: 10000
 			}]
 		});
 
