@@ -26,6 +26,7 @@ define([
 		var game = {};
 
 		game.$canvas = null;
+		game.money = 1e4;
 
 		game.init = function(){
 			scene = new THREE.Scene();
@@ -72,6 +73,8 @@ define([
 			scene.add(light);
 			scene.add(ground);
 			scene.add(commandCenter.object);
+
+			gui.updateMoney(game.money);
 		};
 
 		game.build = function(item){

@@ -1,5 +1,6 @@
-define(['text!./body.html'], function(html){
-	var body = Handlebars.compile(html);
+define(['text!./head.html', 'text!./body.html'], function(headHTML, bodyHTML){
+	var head = Handlebars.compile(headHTML),
+		body = Handlebars.compile(bodyHTML);
 	var $gui = $('#gui'),
 		$head = $gui.children('header'),
 		$body = $gui.children('section');
@@ -9,6 +10,13 @@ define(['text!./body.html'], function(html){
 		render: function(data){
 			current = data;
 			$body.html(body(data));
+		},
+
+		updateMoney: function(money){
+			$head.html(head({
+				money: money
+			}));
+			return this;
 		},
 
 		clear: function(){
