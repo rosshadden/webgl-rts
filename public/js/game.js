@@ -88,19 +88,18 @@ define([
 
 				}
 
-				game.$canvas.on('click.spawn', function(event){
+				game.$canvas.one('click.build', function(event){
 					if(event.which === 1){
 						game.spawn(entity, {
-							x: event.clientX,
-							y: event.clientY
+							x: event.clientX - dimensions.width / 2,
+							y: -(event.clientY - dimensions.height / 2)
 						});
 
-						game.$canvas.unbind('click.spawn');
+						game.money -= item.cost;
+						gui.updateMoney(game.money);
 					}
+					//	BUG:  WHY DOESN'T THIS FIRE WHEN RIGHT CLICKING?
 				});
-
-				game.money -= item.cost;
-				gui.updateMoney(game.money);
 			}
 
 			return game;
